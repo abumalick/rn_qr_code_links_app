@@ -13,6 +13,8 @@
     "react": "16.13.1",
     "react-native": "0.63.2",
     "react-native-camera": "^3.35.0",
+    "react-native-permissions": "^2.1.5",
+    "react-native-qrcode-scanner": "https://github.com/moaazsidat/react-native-qrcode-scanner#v1.5.0",
     "realm": "^6.0.4"
   },
   "devDependencies": {
