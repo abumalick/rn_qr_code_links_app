@@ -7,23 +7,36 @@
     "ios": "react-native run-ios",
     "start": "react-native start",
     "test": "jest",
-    "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "pod": "cd ios && pod install"
   },
   "dependencies": {
+    "color": "^3.1.2",
     "react": "16.13.1",
     "react-native": "0.63.2",
     "react-native-camera": "^3.35.0",
+    "react-native-gesture-handler": "^1.7.0",
+    "react-native-get-random-values": "^1.4.0",
     "react-native-permissions": "^2.1.5",
     "react-native-qrcode-scanner": "https://github.com/moaazsidat/react-native-qrcode-scanner#v1.5.0",
-    "realm": "^6.0.4"
+    "react-native-reanimated": "^1.10.2",
+    "react-native-redash": "^14.2.3",
+    "react-native-svg": "^12.1.0",
+    "react-native-svg-transformer": "^0.14.3",
+    "react-native-webview": "^10.4.0",
+    "realm": "^6.0.4",
+    "use-force-update": "^1.0.7",
+    "uuid": "^8.3.0"
   },
   "devDependencies": {
     "@babel/core": "^7.8.4",
     "@babel/runtime": "^7.8.4",
     "@react-native-community/eslint-config": "^1.1.0",
+    "@types/color": "^3.0.1",
     "@types/jest": "^25.2.3",
     "@types/react-native": "^0.63.2",
     "@types/react-test-renderer": "^16.9.2",
+    "@types/uuid": "^8.0.1",
     "@typescript-eslint/eslint-plugin": "^2.27.0",
     "@typescript-eslint/parser": "^2.27.0",
     "babel-jest": "^25.1.0",
