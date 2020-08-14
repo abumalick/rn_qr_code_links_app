@@ -6,6 +6,8 @@ import 'react-native-get-random-values'
 import useForceUpdate from 'use-force-update'
 import FAB from '../components/FAB'
 import LinkItem from '../components/LinkItem'
+import LinkListEmpty from '../components/LinkListEmpty'
+import LinkListHelp from '../components/LinkListHelp'
 import Loading from '../components/Loading'
 import useRealm from '../hooks/useRealm'
 import {dbSchema, LinkModel} from '../lib/db'
@@ -70,12 +72,15 @@ const HomeScreen: React.FC<Props> = ({navigation}) => {
       <StatusBar barStyle="dark-content" />
       <SafeAreaView style={styles.safeArea}>
         <FlatList
+          contentContainerStyle={{height: '100%'}}
           data={links}
+          keyExtractor={(item) => item.id}
+          ListEmptyComponent={LinkListEmpty}
+          ListFooterComponent={links.length > 0 ? LinkListHelp : undefined}
           renderItem={({item}) => {
             const {id, url} = item
             return (
               <LinkItem
-                key={id}
                 onPress={() => openLink(url)}
                 onDelete={() => {
                   deleteLink(id)
