@@ -1,9 +1,8 @@
 import {StackNavigationProp} from '@react-navigation/stack'
 import React, {useCallback} from 'react'
-import {Linking, SafeAreaView, StatusBar, StyleSheet} from 'react-native'
+import {Alert, SafeAreaView, StatusBar, StyleSheet} from 'react-native'
 import {FlatList} from 'react-native-gesture-handler'
 import 'react-native-get-random-values'
-import {Colors} from 'react-native/Libraries/NewAppScreen'
 import useForceUpdate from 'use-force-update'
 import FAB from '../components/FAB'
 import LinkItem from '../components/LinkItem'
@@ -16,13 +15,32 @@ type Props = {
   navigation: StackNavigationProp<RootStackParamList, 'Scanner'>
 }
 
+const urlRegex = /[(http(s)?)://(www.)?a-zA-Z0-9@:%._+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_+.~#?&//=]*)/
+
 const HomeScreen: React.FC<Props> = ({navigation}) => {
   const {realm} = useRealm(dbSchema)
   const forceUpdate = useForceUpdate()
 
   const openLink = useCallback(
     (url: string) => {
-      navigation.navigate('WebView', {uri: url})
+      const matches = url.match(urlRegex)
+      if (!matches) {
+        Alert.alert(
+          "The text selected doesn't contain an url",
+          'Are you sure you want to open it in the browser?',
+          [
+            {
+              text: 'Open anyway',
+              onPress: () => navigation.navigate('WebView', {uri: url}),
+            },
+            {
+              text: 'Cancel',
+            },
+          ],
+        )
+      } else {
+        navigation.navigate('WebView', {uri: matches[0]})
+      }
     },
     [navigation],
   )
@@ -50,11 +68,7 @@ const HomeScreen: React.FC<Props> = ({navigation}) => {
   return (
     <>
       <StatusBar barStyle="dark-content" />
-      <SafeAreaView
-        style={{
-          flex: 1,
-        }}
-      >
+      <SafeAreaView style={styles.safeArea}>
         <FlatList
           data={links}
           renderItem={({item}) => {
@@ -79,41 +93,8 @@ const HomeScreen: React.FC<Props> = ({navigation}) => {
 }
 
 const styles = StyleSheet.create({
-  scrollView: {
-    backgroundColor: Colors.lighter,
-  },
-  engine: {
-    position: 'absolute',
-    right: 0,
-  },
-  body: {
-    backgroundColor: Colors.white,
-  },
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-    color: Colors.black,
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-    color: Colors.dark,
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-  footer: {
-    color: Colors.dark,
-    fontSize: 12,
-    fontWeight: '600',
-    padding: 4,
-    paddingRight: 12,
-    textAlign: 'right',
+  safeArea: {
+    flex: 1,
   },
 })
 
