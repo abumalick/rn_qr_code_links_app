@@ -45,7 +45,7 @@ const ScannerScreen: React.FC<Props> = ({navigation}) => {
         showMarker
         customMarker={
           <View style={styles.fullContainer}>
-            <View style={styles.borderContainer}></View>
+            <View style={styles.borderTopContainer}></View>
             <View style={styles.centerWrapper}>
               <View style={styles.borderContainer} />
               <View style={styles.centerContainer} />
@@ -74,6 +74,10 @@ const styles = StyleSheet.create({
   },
   borderContainer: {
     flex: 1,
+    backgroundColor: 'rgba(0,0,0,0.7)',
+  },
+  borderTopContainer: {
+    flex: 0.5,
     backgroundColor: 'rgba(0,0,0,0.7)',
   },
   centerContainer: {
