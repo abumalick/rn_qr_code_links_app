@@ -87,13 +87,13 @@ const Item = ({id, url, onDelete, onPress}: ItemProps) => {
           <Action x={abs(translateX)} {...{deleteOpacity}} />
         </TouchableWithoutFeedback>
       </View>
-      <TouchableOpacity onPress={onPress}>
-        <PanGestureHandler {...gestureHandler}>
-          <Animated.View style={{height, transform: [{translateX}]}}>
+      <PanGestureHandler {...gestureHandler}>
+        <Animated.View style={{height, transform: [{translateX}]}}>
+          <TouchableOpacity onPress={onPress}>
             <ItemLayout id={id} url={url} />
-          </Animated.View>
-        </PanGestureHandler>
-      </TouchableOpacity>
+          </TouchableOpacity>
+        </Animated.View>
+      </PanGestureHandler>
     </Animated.View>
   )
 }
