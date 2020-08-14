@@ -1,37 +1,61 @@
-import React from 'react'
-import {Dimensions, StyleSheet, Text, View} from 'react-native'
+import {StackNavigationProp} from '@react-navigation/stack'
+import React, {useCallback} from 'react'
+import {Dimensions, StatusBar, StyleSheet, View} from 'react-native'
 import QRCodeScanner, {Event} from 'react-native-qrcode-scanner'
+import {v4 as uuidv4} from 'uuid'
+import Loading from '../components/Loading'
+import useRealm from '../hooks/useRealm'
+import {dbSchema} from '../lib/db'
+import type {RootStackParamList} from '../Main'
 
 type Props = {
-  onScanLink: (url: string) => void
+  navigation: StackNavigationProp<RootStackParamList, 'Scanner'>
 }
 
-const ScannerScreen: React.FC<Props> = ({onScanLink}) => {
+const ScannerScreen: React.FC<Props> = ({navigation}) => {
+  const {realm} = useRealm(dbSchema)
+  const handleAddLink = useCallback(
+    (url) => {
+      if (!realm)
+        throw new Error('Trying to write to DB while it does not exist')
+      realm.write(() => {
+        realm.create('Link', {
+          id: uuidv4(),
+          url,
+        })
+      })
+      navigation.navigate('Home', {})
+    },
+    [realm, navigation],
+  )
   const handleRead = (event: Event) => {
-    onScanLink(event.data)
+    handleAddLink(event.data)
   }
-
+  if (!realm) {
+    return <Loading />
+  }
   return (
-    <QRCodeScanner
-      onRead={handleRead}
-      topViewStyle={styles.zeroContainer}
-      bottomViewStyle={styles.zeroContainer}
-      cameraStyle={styles.cameraContainer}
-      showMarker
-      customMarker={
-        <View style={styles.fullContainer}>
-          <View style={[styles.borderContainer, styles.flexCenter]}>
-            <Text style={styles.centerText}>Scan the QR code.</Text>
-          </View>
-          <View style={styles.centerWrapper}>
+    <>
+      <StatusBar barStyle="dark-content" />
+      <QRCodeScanner
+        onRead={handleRead}
+        topViewStyle={styles.zeroContainer}
+        bottomViewStyle={styles.zeroContainer}
+        cameraStyle={styles.cameraContainer}
+        showMarker
+        customMarker={
+          <View style={styles.fullContainer}>
+            <View style={styles.borderContainer}></View>
+            <View style={styles.centerWrapper}>
+              <View style={styles.borderContainer} />
+              <View style={styles.centerContainer} />
+              <View style={styles.borderContainer} />
+            </View>
             <View style={styles.borderContainer} />
-            <View style={styles.centerContainer} />
-            <View style={styles.borderContainer} />
           </View>
-          <View style={styles.borderContainer} />
-        </View>
-      }
-    />
+        }
+      />
+    </>
   )
 }
 
@@ -39,10 +63,6 @@ const styles = StyleSheet.create({
   fullContainer: {
     height: '100%',
     width: '100%',
-  },
-  flexCenter: {
-    alignItems: 'center',
-    justifyContent: 'center',
   },
   zeroContainer: {
     height: 0,
