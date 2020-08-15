@@ -251,6 +251,8 @@ PODS:
     - React
   - react-native-safe-area-context (3.1.4):
     - React
+  - react-native-splash-screen (3.2.0):
+    - React
   - react-native-webview (10.4.0):
     - React
   - React-RCTActionSheet (0.63.2):
@@ -372,6 +374,7 @@ DEPENDENCIES:
   - react-native-camera (from `../node_modules/react-native-camera`)
   - react-native-get-random-values (from `../node_modules/react-native-get-random-values`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
+  - react-native-splash-screen (from `../node_modules/react-native-splash-screen`)
   - react-native-webview (from `../node_modules/react-native-webview`)
   - React-RCTActionSheet (from `../node_modules/react-native/Libraries/ActionSheetIOS`)
   - React-RCTAnimation (from `../node_modules/react-native/Libraries/NativeAnimation`)
@@ -445,6 +448,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-get-random-values"
   react-native-safe-area-context:
     :path: "../node_modules/react-native-safe-area-context"
+  react-native-splash-screen:
+    :path: "../node_modules/react-native-splash-screen"
   react-native-webview:
     :path: "../node_modules/react-native-webview"
   React-RCTActionSheet:
@@ -515,6 +520,7 @@ SPEC CHECKSUMS:
   react-native-camera: d9e7b66e40420dcef111f3265a00f01eea54c52c
   react-native-get-random-values: 2b7500cdb68066aba87cdccd97067c29e16ffe95
   react-native-safe-area-context: eb91fe1fb3f7b87d9c30a7f0808407d8569d539d
+  react-native-splash-screen: 200d11d188e2e78cea3ad319964f6142b6384865
   react-native-webview: 1ad70b21fb9e44811e33a99e43a4b68b94806a6d
   React-RCTActionSheet: 910163b6b09685a35c4ebbc52b66d1bfbbe39fc5
   React-RCTAnimation: 9a883bbe1e9d2e158d4fb53765ed64c8dc2200c6
@@ -536,6 +542,6 @@ SPEC CHECKSUMS:
   Yoga: 7740b94929bbacbddda59bf115b5317e9a161598
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: fbc7fc03369cf30deea8aab2d6c0e90b86f83f18
+PODFILE CHECKSUM: a2430092c78cfdd9e5b416f32931669320f557d2
 
 COCOAPODS: 1.9.0

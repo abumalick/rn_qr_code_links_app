@@ -8,6 +8,7 @@ target 'rn_qr_code_links_app' do
 
   use_react_native!(:path => config["reactNativePath"])
 
+
   target 'rn_qr_code_links_appTests' do
     inherit! :complete
     # Pods for testing

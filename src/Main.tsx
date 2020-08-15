@@ -1,6 +1,7 @@
 import {NavigationContainer} from '@react-navigation/native'
 import {createStackNavigator} from '@react-navigation/stack'
-import * as React from 'react'
+import React, {useEffect} from 'react'
+import SplashScreen from 'react-native-splash-screen'
 import Loading from './components/Loading'
 import {colors} from './lib/colors'
 import {dbSchema} from './lib/db'
@@ -20,6 +21,9 @@ export type RootStackParamList = {
 const Stack = createStackNavigator<RootStackParamList>()
 
 const Main = () => {
+  useEffect(() => {
+    SplashScreen.hide()
+  }, [])
   return (
     <RealmProvider schema={dbSchema} loadingComponent={<Loading />}>
       <NavigationContainer>
@@ -28,7 +32,7 @@ const Main = () => {
             name="Home"
             component={HomeScreen}
             options={{
-              title: 'Scanned links list',
+              title: 'QR code scanner',
               headerTintColor: '#fff',
               headerStyle: {
                 backgroundColor: colors.primary,
