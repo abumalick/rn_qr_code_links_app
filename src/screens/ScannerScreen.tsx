@@ -3,25 +3,22 @@ import React, {useCallback} from 'react'
 import {Dimensions, StatusBar, StyleSheet, View} from 'react-native'
 import QRCodeScanner, {Event} from 'react-native-qrcode-scanner'
 import {v4 as uuidv4} from 'uuid'
-import Loading from '../components/Loading'
-import useRealm from '../hooks/useRealm'
-import {dbSchema} from '../lib/db'
 import type {RootStackParamList} from '../Main'
+import {useRealmOrThrow} from '../providers/RealmProvider'
 
 type Props = {
   navigation: StackNavigationProp<RootStackParamList, 'Scanner'>
 }
 
 const ScannerScreen: React.FC<Props> = ({navigation}) => {
-  const {realm} = useRealm(dbSchema)
+  const realm = useRealmOrThrow()
   const handleAddLink = useCallback(
     (url) => {
-      if (!realm)
-        throw new Error('Trying to write to DB while it does not exist')
       realm.write(() => {
         realm.create('Link', {
           id: uuidv4(),
           url,
+          createdAt: new Date(),
         })
       })
       navigation.navigate('Home', {})
@@ -30,9 +27,6 @@ const ScannerScreen: React.FC<Props> = ({navigation}) => {
   )
   const handleRead = (event: Event) => {
     handleAddLink(event.data)
-  }
-  if (!realm) {
-    return <Loading />
   }
   return (
     <>

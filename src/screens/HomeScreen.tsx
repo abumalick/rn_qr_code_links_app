@@ -8,10 +8,9 @@ import FAB from '../components/FAB'
 import LinkItem from '../components/LinkItem'
 import LinkListEmpty from '../components/LinkListEmpty'
 import LinkListHelp from '../components/LinkListHelp'
-import Loading from '../components/Loading'
-import useRealm from '../hooks/useRealm'
-import {dbSchema, LinkModel} from '../lib/db'
+import {LinkModel} from '../lib/db'
 import type {RootStackParamList} from '../Main'
+import {useRealmOrThrow} from '../providers/RealmProvider'
 
 type Props = {
   navigation: StackNavigationProp<RootStackParamList, 'Scanner'>
@@ -20,7 +19,7 @@ type Props = {
 const urlRegex = /[(http(s)?)://(www.)?a-zA-Z0-9@:%._+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_+.~#?&//=]*)/
 
 const HomeScreen: React.FC<Props> = ({navigation}) => {
-  const {realm} = useRealm(dbSchema)
+  const realm = useRealmOrThrow()
   const forceUpdate = useForceUpdate()
 
   const openLink = useCallback(
@@ -62,10 +61,7 @@ const HomeScreen: React.FC<Props> = ({navigation}) => {
     navigation.navigate('Scanner', {})
   }, [navigation])
 
-  if (!realm) {
-    return <Loading />
-  }
-  const links = realm.objects<LinkModel>('Link')
+  const links = realm.objects<LinkModel>('Link').sorted('createdAt', true)
 
   return (
     <>

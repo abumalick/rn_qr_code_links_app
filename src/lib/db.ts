@@ -1,6 +1,7 @@
 export interface LinkModel {
   id: string
   url: string
+  createdAt: Date
 }
 
 export const dbSchema: Array<Realm.ObjectClass | Realm.ObjectSchema> = [
@@ -9,6 +10,7 @@ export const dbSchema: Array<Realm.ObjectClass | Realm.ObjectSchema> = [
     primaryKey: 'id',
     properties: {
       id: 'string',
+      createdAt: 'date',
       url: 'string',
     },
   },
