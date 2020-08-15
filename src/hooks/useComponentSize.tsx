@@ -16,7 +16,6 @@ interface useComponentSize {
 
 const useComponentSize: useComponentSize = (firstRenderOnly = false) => {
   const [size, setSize] = useState<Size | null>(null)
-  console.log('render')
   const onLayout = useCallback(
     (event: LayoutChangeEvent) => {
       const {width, height} = event.nativeEvent.layout
