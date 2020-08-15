@@ -22,4 +22,7 @@ target 'rn_qr_code_links_app' do
   post_install do |installer|
     flipper_post_install(installer)
   end
+
+  permissions_path = '../node_modules/react-native-permissions/ios'
+  pod 'Permission-Camera', :path => "#{permissions_path}/Camera.podspec"
 end
