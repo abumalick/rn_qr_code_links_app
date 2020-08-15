@@ -6,9 +6,13 @@
     "android": "react-native run-android",
     "ios": "react-native run-ios",
     "start": "react-native start",
+    "start:reset": "react-native start --reset-cache",
     "test": "jest",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
-    "pod": "cd ios && pod install"
+    "pod": "cd ios && pod install",
+    "android:clean": "cd android && gradlew clean",
+    "android:bundle": "cd android && gradlew bundleRelease",
+    "android:install": "react-native run-android --variant=release"
   },
   "dependencies": {
     "@react-native-community/masked-view": "^0.1.10",
