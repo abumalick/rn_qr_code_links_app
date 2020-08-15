@@ -6,15 +6,15 @@ A React Native application for using the device's camera to scan QR codes and st
 
 ## Screenshots
 
-![Screenshot, Home empty](screenshots/screenshot-home-empty.png)
+![Screenshot, Home empty](screenshots/screenshot-home-empty.jpg)
 
-![Screenshot, Scan](screenshots/scan.png)
+![Screenshot, Scan](screenshots/screenshot-scan.jpg)
 
-![Screenshot, Home](screenshots/screenshot-home.png)
+![Screenshot, Home](screenshots/screenshot-home.jpg)
 
-![Screenshot, Remove a link](screenshots/screenshot-remove.png)
+![Screenshot, Remove a link](screenshots/screenshot-remove.jpg)
 
-![Screenshot, Browser](screenshots/screenshot-webview.png)
+![Screenshot, Browser](screenshots/screenshot-webview.jpg)
 
 ## Important commands
 
