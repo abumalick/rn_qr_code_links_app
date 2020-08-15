@@ -1,5 +1,11 @@
 import React from 'react'
 import {Dimensions, StyleSheet, View} from 'react-native'
+import {
+  PanGestureHandler,
+  State,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+} from 'react-native-gesture-handler'
 import Animated, {
   abs,
   add,
@@ -12,24 +18,16 @@ import Animated, {
   useCode,
 } from 'react-native-reanimated'
 import {
-  PanGestureHandler,
-  State,
-  TouchableWithoutFeedback,
-  TouchableOpacity,
-} from 'react-native-gesture-handler'
-import {
+  clamp,
+  minus,
   snapPoint,
   timing,
   useClock,
   usePanGestureHandler,
   useValue,
-  minus,
-  clamp,
 } from 'react-native-redash'
-
-import ItemLayout, {HEIGHT} from './LinkItemLayout'
 import Action from './DeleteAction'
-import {LinkModel} from '../lib/db'
+import ItemLayout, {HEIGHT} from './LinkItemLayout'
 
 const {width} = Dimensions.get('window')
 const snapPoints = [-width, -100, 0]
@@ -44,12 +42,13 @@ const styles = StyleSheet.create({
   },
 })
 
-interface ItemProps extends LinkModel {
+interface ItemProps {
   onPress: () => void
   onDelete: () => void
+  text: string
 }
 
-const Item = ({id, url, onDelete, onPress}: ItemProps) => {
+const Item = ({text, onDelete, onPress}: ItemProps) => {
   const {gestureHandler, translation, velocity, state} = usePanGestureHandler()
   const translateX = useValue(0)
   const offsetX = useValue(0)
@@ -90,7 +89,7 @@ const Item = ({id, url, onDelete, onPress}: ItemProps) => {
       <PanGestureHandler {...gestureHandler}>
         <Animated.View style={{height, transform: [{translateX}]}}>
           <TouchableOpacity onPress={onPress}>
-            <ItemLayout id={id} url={url} />
+            <ItemLayout text={text} />
           </TouchableOpacity>
         </Animated.View>
       </PanGestureHandler>

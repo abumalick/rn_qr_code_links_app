@@ -85,8 +85,7 @@ const HomeScreen: React.FC<Props> = ({navigation}) => {
                 onDelete={() => {
                   deleteLink(id)
                 }}
-                id={id}
-                url={url}
+                text={url}
               />
             )
           }}
